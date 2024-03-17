@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Dockker</string>
+
+    <string-array name="user_type_array">
+        <item>"Select User"</item>
+        <item>"Student"</item>
+        <item>"Department"</item>
+    </string-array>
+
+    <string-array name="user_dept_type_array">
+        <item>"Select Department"</item>
+        <item>"Central Library"</item>
+        <item>"Hostel"</item>
+        <item>"Finance"</item>
+    </string-array>
+</resources>

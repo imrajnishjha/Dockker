@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StudentRegistration"
+    android:background="@color/different_white"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/registration_nalanda_logo_and_name_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="54dp"
+            android:gravity="center|bottom"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/graduated" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="Dockker"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/registration_back_btn_and_text_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center|start"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registration_nalanda_logo_and_name_ll">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/registration_back_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/curvy_back_icon"
+                android:contentDescription="Back Button"
+                tools:ignore="HardcodedText" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="Register"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="register    "
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Enter the Details"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/registration_fields_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registration_back_btn_and_text_ll">
+
+            <EditText
+                android:id="@+id/registration_full_name_edtTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="name"
+                android:textColor="@color/black"
+                android:background="@drawable/rounded_black_edt_txt"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Full Name"
+                android:inputType="textPersonName"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="4dp"
+                android:textColorHint="@color/text_grey"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+
+            <Spinner
+                android:id="@+id/registration_male_female_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_black_edt_txt"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="4dp" />
+
+            <EditText
+                android:id="@+id/registration_email_address_edtTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="emailAddress"
+                android:background="@drawable/rounded_black_edt_txt"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Email Address"
+                android:inputType="textEmailAddress"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:textColor="@color/black"
+                android:paddingEnd="16dp"
+                android:paddingBottom="4dp"
+                android:textColorHint="@color/text_grey"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+
+            <EditText
+                android:id="@+id/registration_phone_number_edtTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/black"
+                android:autofillHints="phone"
+                android:background="@drawable/rounded_black_edt_txt"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Id"
+                android:inputType="phone"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="4dp"
+                android:textColorHint="@color/text_grey"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+
+            <Spinner
+                android:id="@+id/registration_usertype_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_black_edt_txt"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:visibility="gone"
+                android:paddingEnd="16dp"
+                android:paddingBottom="4dp" />
+
+
+
+            <EditText
+                android:id="@+id/registration_address_edtTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="postalAddress"
+                android:background="@drawable/rounded_black_edt_txt"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Organisation"
+                android:textColor="@color/black"
+                android:inputType="textPostalAddress"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="4dp"
+                android:textColorHint="@color/text_grey"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+
+            <EditText
+                android:id="@+id/registration_password_edtTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="postalAddress"
+                android:background="@drawable/rounded_black_edt_txt"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Enter your PassWord"
+                android:textColor="@color/black"
+                android:inputType="textPostalAddress"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="4dp"
+                android:textColorHint="@color/text_grey"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/registration_terms_and_condition_ll"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="start|top"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registration_fields_ll">
+
+            <CheckBox
+                android:id="@+id/registration_terms_and_condition_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="I Agree to the Terms and Condition. (Please read it Carefully)"
+                android:textColor="@color/text_grey"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/registration_register_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/light_blue_rounded_btn"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingStart="42dp"
+            android:paddingEnd="42dp"
+            android:text="Register"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@id/registration_terms_and_condition_ll"
+            tools:ignore="HardcodedText" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>
