@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -36,8 +37,9 @@ public class StudentDashboard extends AppCompatActivity {
     FirebaseAuth mAuth;
     String userEmail,convertedEmail;
     Dialog addItemDialog;
-    CardView nocCard,statusCard;
-    DatabaseReference registrationRef= FirebaseDatabase.getInstance().getReference("user/");
+    CardView nocCard,statusCard,profileCard;
+    TextView nocStatus;
+    DatabaseReference registrationRef= FirebaseDatabase.getInstance().getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +53,15 @@ public class StudentDashboard extends AppCompatActivity {
 
         nocCard = findViewById(R.id.core_mem);
         statusCard = findViewById(R.id.explore);
+        profileCard = findViewById(R.id.member_directory);
+        nocStatus = findViewById(R.id.noc_status_value);
 
         assert userEmail != null;
         convertedEmail = userEmail.replaceAll("\\.", "%7");
 
         addItemDialog = new Dialog(this);
 
-        registrationRef.child(convertedEmail).addListenerForSingleValueEvent(new ValueEventListener() {
+        registrationRef.child("user").child(convertedEmail).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child("purl").exists()){
@@ -67,6 +71,28 @@ public class StudentDashboard extends AppCompatActivity {
                             .placeholder(R.drawable.student)
                             .into(userImage);
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //For NOC Status
+        registrationRef.child("noc").child(convertedEmail).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child("Status").exists()){
+                    int status = Integer.parseInt(Objects.requireNonNull(snapshot.child("Status").getValue()).toString());
+                    Log.d("oio", "onDataChange: "+status);
+                    if(status == 0) nocStatus.setText("For Guide Approval");
+                    else if(status == 1) nocStatus.setText("At Project Co-ordinator");
+                    else if(status == 2) nocStatus.setText("At Placement Cell");
+                    else if(status == 3) nocStatus.setText("For Account Clearance");
+                    else if(status == 4) nocStatus.setText("At the Admin Cell");
+                }
+                else nocStatus.setText("Not Yet Applied");
             }
 
             @Override
@@ -98,6 +124,7 @@ public class StudentDashboard extends AppCompatActivity {
 
         nocCard.setOnClickListener( v -> startActivity(new Intent(this, NocStudentApply.class)));
         statusCard.setOnClickListener( v -> startActivity(new Intent(this, StudentStatus.class)));
+        profileCard.setOnClickListener( v -> startActivity(new Intent(this, StudentProfile.class)));
     }
 
     public void uploadImage() {
@@ -111,7 +138,7 @@ public class StudentDashboard extends AppCompatActivity {
                 storageRef.getDownloadUrl().addOnSuccessListener( uri ->{
                     newMap.put("purl",uri.toString());
 
-                    registrationRef.child(convertedEmail).updateChildren(newMap)
+                    registrationRef.child("user").child(convertedEmail).updateChildren(newMap)
                             .addOnSuccessListener(s -> {
                                 Toast.makeText(getApplicationContext(), "Item Added", Toast.LENGTH_SHORT).show();
                                 addItemDialog.dismiss();

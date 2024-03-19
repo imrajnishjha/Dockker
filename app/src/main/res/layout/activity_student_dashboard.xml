@@ -143,7 +143,7 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/solved_value"
+                android:id="@+id/noc_status_value"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginStart="200dp"

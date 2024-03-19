@@ -18,7 +18,8 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(MainActivity.this, Login.class));
+            if(mAuth.getCurrentUser() != null) startActivity(new Intent(MainActivity.this, StudentDashboard.class));
+            else startActivity(new Intent(MainActivity.this, Login.class));
             finish();
         },1000);
 

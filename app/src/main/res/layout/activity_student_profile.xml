@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="#d8e2dc"
     android:fillViewport="true"
     tools:context=".StudentProfile">
 
@@ -91,6 +91,7 @@
             <ImageView
                 android:id="@+id/user_profile_image"
                 android:layout_width="match_parent"
+                android:src="@drawable/student"
                 android:layout_height="match_parent" />
 
         </androidx.cardview.widget.CardView>
@@ -125,88 +126,45 @@
             android:id="@+id/membership_date_cardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
             app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#e0fbfc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_membership_cardView">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semi_bold"
-                        android:text="Member Since"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/user_membership_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semi_bold"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="7dp"
+                    android:src="@drawable/file" />
 
                 <TextView
-                    android:layout_width="1.5dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/white" />
-
-                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="32dp"
-                    android:orientation="vertical">
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="Upload Id"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:paddingEnd="7dp"
 
-                    <TextView
+                    />
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semi_bold"
-                        android:text="Valid Upto"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/expiry_dateId"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semi_bold"
-                        android:text="14th  Nov, 2023"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
 
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
 
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/call_image"
+            android:src="@drawable/programmer"
             app:layout_constraintBottom_toBottomOf="@id/user_profile_contactNumber_edtTxt"
             app:layout_constraintEnd_toStartOf="@id/user_profile_contactNumber_edtTxt"
             app:layout_constraintTop_toTopOf="@id/user_profile_contactNumber_edtTxt" />
@@ -220,7 +178,7 @@
             android:layout_marginEnd="32dp"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Add Your Contact Number"
+            android:hint="User Name"
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
@@ -232,7 +190,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/birthday_image"
+            android:src="@drawable/schedule"
             app:layout_constraintBottom_toBottomOf="@id/user_profile_dateOfBirth_edtTxt"
             app:layout_constraintEnd_toStartOf="@id/user_profile_dateOfBirth_edtTxt"
             app:layout_constraintTop_toTopOf="@id/user_profile_dateOfBirth_edtTxt" />
@@ -258,7 +216,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/email_image"
+            android:src="@drawable/gmail"
             app:layout_constraintBottom_toBottomOf="@id/user_profile_email_edtTxt"
             app:layout_constraintEnd_toStartOf="@id/user_profile_email_edtTxt"
             app:layout_constraintTop_toTopOf="@id/user_profile_email_edtTxt" />
@@ -285,7 +243,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/briefcase_image"
+            android:src="@drawable/degree"
             app:layout_constraintBottom_toBottomOf="@id/user_profile_company_name_edtTxt"
             app:layout_constraintEnd_toStartOf="@id/user_profile_company_name_edtTxt"
             app:layout_constraintTop_toTopOf="@id/user_profile_company_name_edtTxt" />
@@ -298,11 +256,9 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:backgroundTint="@color/black"
-            android:focusable="false"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Company Name"
-            android:inputType="none"
-            android:textColor="@color/grey"
+            android:hint="University Name"
+            android:textColor="@color/black"
             android:textColorHint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -313,7 +269,34 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/address_image"
+            android:src="@drawable/id"
+            app:layout_constraintBottom_toBottomOf="@id/user_profile_Id_edtTxt"
+            app:layout_constraintEnd_toStartOf="@id/user_profile_Id_edtTxt"
+            app:layout_constraintTop_toTopOf="@id/user_profile_Id_edtTxt" />
+
+        <EditText
+            android:id="@+id/user_profile_Id_edtTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/poppins_regular"
+            android:inputType="number"
+            android:hint="System Id"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_profile_company_name_edtTxt"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/telephone"
             app:layout_constraintBottom_toBottomOf="@id/user_profile_address_edtTxt"
             app:layout_constraintEnd_toStartOf="@id/user_profile_address_edtTxt"
             app:layout_constraintTop_toTopOf="@id/user_profile_address_edtTxt" />
@@ -327,61 +310,33 @@
             android:layout_marginEnd="32dp"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Address"
+            android:hint="Contact"
+            android:inputType="number"
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_profile_company_name_edtTxt"
+            app:layout_constraintTop_toBottomOf="@id/user_profile_Id_edtTxt"
             tools:ignore="HardcodedText" />
 
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/user_profile_null_text"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="0dp"-->
-        <!--            app:layout_constraintBottom_toTopOf="@id/user_profile_save_button"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/user_bio_input_layout" />-->
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/user_profile_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/button_style_black"
+            android:background="@drawable/light_blue_rounded_btn2"
             android:fontFamily="@font/poppins_semi_bold"
             android:paddingStart="48dp"
             android:paddingEnd="48dp"
             android:text="Save Profile"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/upload_brochure_btn"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_profile_address_edtTxt"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="hardCodedText" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/upload_brochure_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="48dp"
-            android:background="@drawable/button_style_black"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="Upload Brochure"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_profile_save_button"
             tools:ignore="hardCodedText" />
 
 

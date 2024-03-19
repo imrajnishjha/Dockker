@@ -7,6 +7,12 @@
         <item>"Department"</item>
     </string-array>
 
+    <string-array name="noc_type_array">
+        <item>"Select Offer type"</item>
+        <item>"Off-Campus"</item>
+        <item>"On-Campus"</item>
+    </string-array>
+
     <string-array name="user_dept_type_array">
         <item>"Select Department"</item>
         <item>"Central Library"</item>

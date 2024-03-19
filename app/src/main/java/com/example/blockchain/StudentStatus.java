@@ -36,7 +36,6 @@ public class StudentStatus extends AppCompatActivity {
         backBtn = findViewById(R.id.status_back_button);
 
         mAuth = FirebaseAuth.getInstance();
-        mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser()!=null){
             userEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
         }
