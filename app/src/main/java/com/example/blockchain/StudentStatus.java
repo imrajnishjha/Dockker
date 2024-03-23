@@ -3,6 +3,7 @@ package com.example.blockchain;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import java.util.Objects;
 
 public class StudentStatus extends AppCompatActivity {
     ImageView guideCheck, projectCheck, placementCheck, adminCheck, accountsCheck;
+    CardView guideCard, projectCard, placementCard, adminCard, accountCard;
     FirebaseAuth mAuth;
     String userEmail, convertedEmail;
     AppCompatButton backBtn;
@@ -34,6 +36,12 @@ public class StudentStatus extends AppCompatActivity {
         adminCheck = findViewById(R.id.adminCheck);
         accountsCheck = findViewById(R.id.accountCheck);
         backBtn = findViewById(R.id.status_back_button);
+
+        guideCard = findViewById(R.id.guideCard);
+        projectCard = findViewById(R.id.project_cod_card);
+        placementCard = findViewById(R.id.placement_card);
+        adminCard = findViewById(R.id.adminCard);
+        accountCard = findViewById(R.id.accoutnCard);
 
         mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser()!=null){

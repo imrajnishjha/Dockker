@@ -82,7 +82,7 @@ public class Login extends AppCompatActivity {
                                     finish();
                                     Toast.makeText(Login.this, "You are logged in!", Toast.LENGTH_SHORT).show();
                                 } else if(usertype.equals("1")){
-                                    startActivity(new Intent(Login.this, StudentDashboard.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK));
+                                    startActivity(new Intent(Login.this, AdminDashboard.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK));
                                     finish();
                                     Toast.makeText(Login.this, "You are logged in!", Toast.LENGTH_SHORT).show();
                                 }
