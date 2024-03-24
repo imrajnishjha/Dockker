@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ public class StudentStatus extends AppCompatActivity {
     FirebaseAuth mAuth;
     String userEmail, convertedEmail;
     AppCompatButton backBtn;
+    int statusGuide, statusProject, statusPlacement, statusFinance, statusAdmin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,12 +58,12 @@ public class StudentStatus extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    StatusMaker(guideCheck,Integer.parseInt(snapshot.child("guide").getValue().toString()));
-                    StatusMaker(projectCheck,Integer.parseInt(snapshot.child("projectcod").getValue().toString()));
-                    StatusMaker(placementCheck,Integer.parseInt(snapshot.child("placement").getValue().toString()));
-                    StatusMaker(accountsCheck,Integer.parseInt(snapshot.child("finance").getValue().toString()));
-                    StatusMaker(accountsCheck,Integer.parseInt(snapshot.child("admin").getValue().toString()));
-
+                    statusGuide = StatusMaker(guideCheck,Integer.parseInt(snapshot.child("guide").getValue().toString()));
+                    statusProject = StatusMaker(projectCheck,Integer.parseInt(snapshot.child("projectcod").getValue().toString()));
+                    statusPlacement = StatusMaker(placementCheck,Integer.parseInt(snapshot.child("placement").getValue().toString()));
+                    statusFinance = StatusMaker(accountsCheck,Integer.parseInt(snapshot.child("finance").getValue().toString()));
+                    statusAdmin = StatusMaker(accountsCheck,Integer.parseInt(snapshot.child("admin").getValue().toString()));
+                    Log.d("oio", "onDataChange: "+statusPlacement);
                 }
             }
 
@@ -73,27 +75,48 @@ public class StudentStatus extends AppCompatActivity {
 
         backBtn.setOnClickListener(v -> finish());
 
-    }
+        guideCard.setOnClickListener(v ->{
+            if(statusGuide != 1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusGuide).putExtra("type",0));
+        });
+        projectCard.setOnClickListener(v -> {
+            if(statusProject != 1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusProject).putExtra("type",1));
+        });
+        placementCard.setOnClickListener(v -> {
+            Log.d("oio", "onCreate: "+statusPlacement);
+            if(statusPlacement != 1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusPlacement).putExtra("type",2));
+        });
+        accountCard.setOnClickListener(v -> {
+            if(statusFinance != 1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusFinance).putExtra("type",3));
+        });
+        adminCard.setOnClickListener(v -> {
+            if(statusAdmin != 1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusAdmin).putExtra("type",4));
+        });
 
-    public void StatusMaker(ImageView imgHolder, int val){
+    }
+    public int StatusMaker(ImageView imgHolder, int val){
+        int cardStatus = -1;
         if(val == 0){
+            cardStatus = 0;
             Glide.with(getApplicationContext())
                     .load(R.drawable.cancel)
                     .error(R.drawable.cancel)
                     .placeholder(R.drawable.cancel)
                     .into(imgHolder);
         } else if(val == 1){
+            cardStatus = 1;
             Glide.with(getApplicationContext())
                     .load(R.drawable.wait)
                     .error(R.drawable.wait)
                     .placeholder(R.drawable.wait)
                     .into(imgHolder);
         } else if(val == 2){
+            cardStatus = 2;
             Glide.with(getApplicationContext())
                     .load(R.drawable.check)
                     .error(R.drawable.check)
                     .placeholder(R.drawable.check)
                     .into(imgHolder);
         }
+        return cardStatus;
     }
 }

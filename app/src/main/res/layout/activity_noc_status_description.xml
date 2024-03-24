@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,11 +8,239 @@
     android:background="#d8e2dc"
     tools:context=".NocStatusDescription">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/noc_logo_and_name_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center|bottom"
+                android:orientation="horizontal"
+                android:paddingTop="7dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:paddingBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/certificate" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="NOC Remarks"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_gravity="center"
+                    android:textSize="18sp"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/noc_remark_back_btn_and_text_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center|start"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/noc_logo_and_name_ll">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/noc_remark_back_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/curvy_back_icon"
+                    android:contentDescription="Back Button"
+                    tools:ignore="HardcodedText" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semi_bold"
+                        android:text="Remark over NOC"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:background="@color/black"
+                        android:fontFamily="@font/poppins_semi_bold"
+                        android:text="register      aldf          "
+                        android:textSize="16sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="23dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Check out the Details"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/verified_by_id"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="15dp"
+                android:textSize="16sp"
+                android:text="Verified By : "
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_semi_bold"
+                app:layout_constraintTop_toBottomOf="@id/noc_remark_back_btn_and_text_ll"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/noc_verified_by"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="23dp"
+                android:gravity="center|left"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/rounded_black_edt_txt"
+                android:text="Rajnish Ranjan"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/verified_by_id"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/remark_by_id"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="15dp"
+                android:textSize="16sp"
+                android:text="Verification Remark: "
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_semi_bold"
+                app:layout_constraintTop_toBottomOf="@id/noc_verified_by"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/noc_remark_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="23dp"
+                android:minHeight="250dp"
+                android:background="@drawable/rounded_black_edt_txt"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="fill_horizontal"
+                android:justificationMode="inter_word"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:scrollbars="vertical"
+                android:scrollbarSize="0dp"
+                android:text="@string/lorem"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/remark_by_id"
+                tools:targetApi="o" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/image_by_id"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="15dp"
+                android:textSize="16sp"
+                android:text="Image Description : "
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_semi_bold"
+                app:layout_constraintTop_toBottomOf="@id/noc_remark_id"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginEnd="23dp"
+                android:background="@drawable/rounded_black_edt_txt"
+                android:layout_marginBottom="80dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_by_id">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:id="@+id/noc_image"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/document_img"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
-</ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/noc_reapply_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/light_blue_rounded_btn2"
+        android:fontFamily="@font/poppins_regular"
+        android:paddingStart="42dp"
+        android:paddingEnd="42dp"
+        android:text="Re-Apply"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_goneMarginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="HardcodedText" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

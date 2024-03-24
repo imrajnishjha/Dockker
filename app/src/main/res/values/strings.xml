@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">Dockker</string>
 
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer varius lorem id
+        mauris dignissim, ut vestibulum velit lacinia. Vestibulum ante ipsum primis in faucibus orci luctus
+        et ultrices posuere cubilia curae; Fusce et mauris vitae ligula interdum placerat non et neque. Ut
+        sit amet purus ligula. Nulla commodo nulla id erat tristique, eget bibendum libero pharetra. Vivamus
+        sollicitudin libero ac augue vestibulum, id ullamcorper urna lacinia. Morbi suscipit lobortis nisi, sed
+        ultrices justo congue nec. Vivamus ullamcorper velit ut tristique iaculis. Ut eu justo id ligula posuere
+        dignissim. Curabitur hendrerit elit eu mi pellentesque, a consectetur est blandit. Proin gravida, sapien
+        nec egestas varius, mi arcu dignissim purus, vel lobortis nunc urna eu tellus. Duis consectetur sapien ac
+        ipsum laoreet, ac vehicula sapien convallis. Sed tincidunt mauris nec elit faucibus dictum. Maecenas efficitur,
+        purus sed viverra aliquam, purus justo aliquam elit, et gravida nunc ligula nec nibh.</string>
+
     <string-array name="user_type_array">
         <item>"Select User"</item>
         <item>"Student"</item>
