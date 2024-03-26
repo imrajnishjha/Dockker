@@ -102,6 +102,7 @@ public class AdminDashboard extends AppCompatActivity {
 
 
         profileCard.setOnClickListener( v -> startActivity(new Intent(this, StudentProfile.class)));
+        nocCard.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), AdminNocApprove.class)));
     }
 
     public void uploadImage() {
@@ -117,7 +118,7 @@ public class AdminDashboard extends AppCompatActivity {
 
                     registrationRef.child("user").child(convertedEmail).updateChildren(newMap)
                             .addOnSuccessListener(s -> {
-                                Toast.makeText(getApplicationContext(), "Item Added", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Profile Picture Updated", Toast.LENGTH_SHORT).show();
                                 addItemDialog.dismiss();
                             })
                             .addOnFailureListener(fail -> {

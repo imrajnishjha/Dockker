@@ -129,7 +129,6 @@ public class StudentDashboard extends AppCompatActivity {
 
     public void uploadImage() {
 
-        Log.d("uiu", "onCreate:j ");
         HashMap<String, Object> newMap = new HashMap<>();
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference("User Picture/" + convertedEmail );
@@ -140,7 +139,7 @@ public class StudentDashboard extends AppCompatActivity {
 
                     registrationRef.child("user").child(convertedEmail).updateChildren(newMap)
                             .addOnSuccessListener(s -> {
-                                Toast.makeText(getApplicationContext(), "Item Added", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Profile Picture Updated", Toast.LENGTH_SHORT).show();
                                 addItemDialog.dismiss();
                             })
                             .addOnFailureListener(fail -> {

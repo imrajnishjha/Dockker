@@ -124,10 +124,18 @@ public class StudentRegistration extends AppCompatActivity {
                 sp = userDeptType.getSelectedItem().toString();
                 if(sp.equals("Central Library")) newUserMap.put("dept",0);
                 else if(sp.equals("Hostel")) newUserMap.put("dept",1);
-                else if(sp.equals("Finance")) newUserMap.put("dept",2);
+                else if(sp.equals("Project Guide")) newUserMap.put("dept",2);
+                else if(sp.equals("Project Co-ordinator")) newUserMap.put("dept",3);
+                else if(sp.equals("Placement Cell")) newUserMap.put("dept",4);
+                else if(sp.equals("Finance")) newUserMap.put("dept",5);
+                else if(sp.equals("Admin")) newUserMap.put("dept",6);
 
                 String deptTypeText = (userDeptType.getSelectedItem().toString().equals("Central Library"))?"library" :
                                             (userDeptType.getSelectedItem().toString().equals("Hostel"))  ? "hostel" :
+                                            (userDeptType.getSelectedItem().toString().equals("Project Guide"))  ? "guide" :
+                                            (userDeptType.getSelectedItem().toString().equals("Project Co-ordinator"))  ? "projectcod" :
+                                            (userDeptType.getSelectedItem().toString().equals("Placement Cell"))  ? "placementcell" :
+                                            (userDeptType.getSelectedItem().toString().equals("Admin"))  ? "admin" :
                                             (userDeptType.getSelectedItem().toString().equals("Finance"))  ? "finance" : "";
 
                 registrationRef.child("Department").addListenerForSingleValueEvent(new ValueEventListener() {

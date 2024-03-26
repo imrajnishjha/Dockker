@@ -62,7 +62,7 @@ public class StudentStatus extends AppCompatActivity {
                     statusProject = StatusMaker(projectCheck,Integer.parseInt(snapshot.child("projectcod").getValue().toString()));
                     statusPlacement = StatusMaker(placementCheck,Integer.parseInt(snapshot.child("placement").getValue().toString()));
                     statusFinance = StatusMaker(accountsCheck,Integer.parseInt(snapshot.child("finance").getValue().toString()));
-                    statusAdmin = StatusMaker(accountsCheck,Integer.parseInt(snapshot.child("admin").getValue().toString()));
+                    statusAdmin = StatusMaker(adminCheck,Integer.parseInt(snapshot.child("admin").getValue().toString()));
                     Log.d("oio", "onDataChange: "+statusPlacement);
                 }
             }

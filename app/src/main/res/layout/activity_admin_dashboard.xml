@@ -206,7 +206,7 @@
                 android:layout_marginTop="80dp"
                 android:layout_marginBottom="10dp"
                 android:maxLines="1"
-                android:text="Apply For NOC"
+                android:text="Verify the NOC Request"
                 android:textColor="@color/different_black"
                 android:textSize="9sp" />
 
@@ -259,7 +259,7 @@
                 android:layout_marginTop="80dp"
                 android:maxLines="1"
                 android:layout_marginBottom="10dp"
-                android:text="Apply to Get a Degree"
+                android:text="Verify NoDues Request"
                 android:textColor="@color/different_black"
                 android:textSize="9sp" />
 

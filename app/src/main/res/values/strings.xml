@@ -28,6 +28,10 @@
         <item>"Select Department"</item>
         <item>"Central Library"</item>
         <item>"Hostel"</item>
+        <item>"Project Guide"</item>
+        <item>"Project Co-ordinator"</item>
+        <item>"Placement Cell"</item>
+        <item>"Admin"</item>
         <item>"Finance"</item>
     </string-array>
 </resources>
