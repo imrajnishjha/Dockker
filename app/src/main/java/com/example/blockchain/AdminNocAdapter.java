@@ -42,7 +42,7 @@ public class AdminNocAdapter extends FirebaseRecyclerAdapter<AdminNocModel, Admi
                     holder.studentName.setText(snapshot.child("name").getValue().toString());
                     holder.studentId.setText(snapshot.child("id").getValue().toString());
                     holder.mainView.setOnClickListener(v ->{
-                        v.getContext().startActivity(new Intent(v.getContext(),AdminNocDetail.class));
+                        v.getContext().startActivity(new Intent(v.getContext(),AdminNocDetail.class).putExtra("key",getRef(holder.getAbsoluteAdapterPosition()).getKey()));
                     });
                 }
             }
