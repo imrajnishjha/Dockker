@@ -98,9 +98,9 @@ public class NocStudentReapply extends AppCompatActivity {
                     offerStr = snapshot.child("offerLetter").getValue().toString();
                     idStr = snapshot.child("idProof").getValue().toString();
                     decStr = snapshot.child("selfDeclaration").getValue().toString();
-                    setFileName(offerText,offerCheck);
-                    setFileName(idText,idCheck);
-                    setFileName(declarationText,declarationCheck);
+                    setFileName(offerText,offerCheck, "Offer letter Uploaded");
+                    setFileName(idText,idCheck,"Id Uploaded");
+                    setFileName(declarationText,declarationCheck,"Self-Declaration Uploaded");
                 }
             }
 
@@ -181,19 +181,20 @@ public class NocStudentReapply extends AppCompatActivity {
         ArrayAdapter adapter = (ArrayAdapter) spinner.getAdapter();
         return adapter.getPosition(value);
     }
-    private void setFileName(TextView tv, ImageView iv ) {
+    private void setFileName(TextView tv, ImageView iv , String text) {
         Glide.with(getApplicationContext())
                 .load(R.drawable.check)
                 .error(R.drawable.check)
                 .placeholder(R.drawable.check)
                 .into(iv);
-        tv.setText("File Uploaded");
+        tv.setText(text);
     }
 
     private void ReApplyNoc(String adminType,Spinner type, EditText cName, EditText cAddress, EditText cPhone, Uri offer, Uri iD, Uri declaration, String email){
         HashMap<String, Object> Detail = new HashMap<>();
         HashMap<String, Object> Status = new HashMap<>();
         Status.put(adminType,1);
+        Status.put("Reject",0);
 
         StorageReference fileReference = storageReference.child("noc").child(email);
 

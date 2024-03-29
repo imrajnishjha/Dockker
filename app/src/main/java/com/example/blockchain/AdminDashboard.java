@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -38,7 +39,7 @@ public class AdminDashboard extends AppCompatActivity {
     String userEmail,convertedEmail;
     Dialog addItemDialog;
     CardView nocCard,statusCard,profileCard;
-    TextView nocStatus;
+    TextView nocRejectedStatus, nocApprovedStatus;
     DatabaseReference registrationRef= FirebaseDatabase.getInstance().getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,8 @@ public class AdminDashboard extends AppCompatActivity {
         nocCard = findViewById(R.id.core_mem_admin);
         statusCard = findViewById(R.id.explore_admin);
         profileCard = findViewById(R.id.member_directory_admin);
-        nocStatus = findViewById(R.id.noc_admin_value);
+        nocRejectedStatus = findViewById(R.id.noc_admin_value);
+        nocApprovedStatus = findViewById(R.id.issued_value_admin);
 
         assert userEmail != null;
         convertedEmail = userEmail.replaceAll("\\.", "%7");
@@ -70,6 +72,38 @@ public class AdminDashboard extends AppCompatActivity {
                             .error(R.drawable.student)
                             .placeholder(R.drawable.student)
                             .into(userImage);
+                    int deptType = Integer.parseInt(snapshot.child("dept").getValue().toString());
+                    Query query = FirebaseDatabase.getInstance().getReference().child("noc");
+                    if(deptType == 2){
+                        query = query.orderByChild("Status").equalTo(0);
+                    } else if(deptType == 3){
+                        query = query.orderByChild("Status").equalTo(1);
+                    } else if(deptType == 4){
+                        query = query.orderByChild("Status").equalTo(2);
+                    } else if(deptType == 5){
+                        query = query.orderByChild("Status").equalTo(3);
+                    } else if(deptType == 6){
+                        query = query.orderByChild("Status").equalTo(4);
+                    }
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            int pendingCount = 0, rejectedCount = 0;
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                                Object rejectValue = snapshot.child("Reject").getValue();
+                                if(rejectValue == null || (rejectValue instanceof Long && (Long) rejectValue == 0)) pendingCount++;
+                                else rejectedCount++;
+                            }
+                            nocApprovedStatus.setText(pendingCount+"");
+                            nocRejectedStatus.setText(rejectedCount+"");
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
 
@@ -78,6 +112,8 @@ public class AdminDashboard extends AppCompatActivity {
 
             }
         });
+
+        //Counting of status
 
         //image picker
         ActivityResultLauncher<PickVisualMediaRequest> pickMedia =

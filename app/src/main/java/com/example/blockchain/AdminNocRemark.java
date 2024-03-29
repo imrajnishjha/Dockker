@@ -15,8 +15,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +49,7 @@ public class AdminNocRemark extends AppCompatActivity {
     String userEmail,convertedEmail;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     DatabaseReference userTypeRef = FirebaseDatabase.getInstance().getReference();
+    RelativeLayout progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class AdminNocRemark extends AppCompatActivity {
         picNameText = findViewById(R.id.remark_admin_picture_name);
         adminRemarkBackBtn = findViewById(R.id.noc_remark_back_btn_admin);
         approveBtn = findViewById(R.id.noc_approve_remark_btn_admin);
+        progressBar = findViewById(R.id.user_admin_noc_remark_progressBarRL);
 
         adminRemarkBackBtn.setOnClickListener( v -> finish());
 
@@ -159,11 +163,12 @@ public class AdminNocRemark extends AppCompatActivity {
 
         });
 
+        //1 to reject 0 to approve
         approveBtn.setOnClickListener( v ->{
             if(type.equals("1")){
-                uploadRemark(1,adminType,itemPurl,remarkEdt.getText().toString(),adminName);
+                uploadRemark(1,adminType,itemPurl,remarkEdt.getText().toString(),adminName,progressBar);
             } else if(type.equals("0")){
-                uploadRemark(0,adminType,itemPurl,remarkEdt.getText().toString(),adminName);
+                uploadRemark(0,adminType,itemPurl,remarkEdt.getText().toString(),adminName,progressBar);
             }
         });
 
@@ -179,23 +184,33 @@ public class AdminNocRemark extends AppCompatActivity {
         }
         return fileName;
     }
-    private void uploadRemark(int appRej,String type, Uri imgUri, String remark, String name){
+    private void uploadRemark(int appRej,String type, Uri imgUri, String remark, String name, RelativeLayout progressBar){
+        progressBar.setVisibility(View.VISIBLE);
         DatabaseReference nocRef = FirebaseDatabase.getInstance().getReference("noc").child(studentKey);
         HashMap<String,Object> remarkMap = new HashMap<>();
         HashMap<String,Object> nocStatusMap = new HashMap<>();
         if(appRej == 0){
             nocStatusMap.put(type,2);
             nocStatusMap.put("Status",Status);
+            nocStatusMap.put("Reject",0);
         }
-        else nocStatusMap.put(type,0);
+        else {
+            nocStatusMap.put(type,0);
+            nocStatusMap.put("Reject",1);
+        }
 
         if(imgUri == null){
             remarkMap.put("name",name);
             remarkMap.put("remark",remark);
+            remarkMap.put("purl","");
             nocRef.updateChildren(nocStatusMap).addOnSuccessListener(s ->{
                 nocRef.child("Remark").child(type).updateChildren(remarkMap);
-                Toast.makeText(this, "NOC Rejected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, appRej == 0 ?"NOC Approved":"NOC Rejected", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
                 startActivity(new Intent(this,AdminDashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            }).addOnFailureListener( f->{
+                Toast.makeText(this, "Please Try Again", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
             });
         }
         else {
@@ -208,11 +223,25 @@ public class AdminNocRemark extends AppCompatActivity {
                        remarkMap.put("purl",uri.toString());
                        nocRef.updateChildren(nocStatusMap).addOnSuccessListener( s->{
                            nocRef.child("Remark").child(type).updateChildren(remarkMap);
-                           Toast.makeText(this, "NOC Rejected", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(this, appRej == 0 ?"NOC Approved":"NOC Rejected", Toast.LENGTH_SHORT).show();
+                           progressBar.setVisibility(View.GONE);
                            startActivity(new Intent(this,AdminDashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                       }).addOnFailureListener(f->{
+                           Toast.makeText(this, "Please Try Again", Toast.LENGTH_SHORT).show();
+                           progressBar.setVisibility(View.GONE);
                        });
+                   }).addOnFailureListener(f->{
+                       Toast.makeText(this, "Please Try Again", Toast.LENGTH_SHORT).show();
+                       progressBar.setVisibility(View.GONE);
                    });
                }
+               else {
+                   Toast.makeText(this, "Please Try Again", Toast.LENGTH_SHORT).show();
+                   progressBar.setVisibility(View.GONE);
+               }
+            }).addOnFailureListener(f->{
+                Toast.makeText(this, "Please Try Again", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
             });
         }
     }

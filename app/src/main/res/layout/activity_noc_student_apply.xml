@@ -12,6 +12,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_noc_apply_progressBarRL"
+            android:padding="10dp"
+            android:elevation="8dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ProgressBar
+                android:id="@+id/story_view_progressBar"
+                android:layout_width="30dp"
+                android:layout_centerInParent="true"
+                android:layout_height="30dp"/>
+
+        </RelativeLayout>
+
         <LinearLayout
             android:id="@+id/noc_logo_and_name_ll"
             android:layout_width="match_parent"

@@ -135,7 +135,7 @@
                         android:layout_height="30dp"
                         android:id="@+id/guide_check"
                         android:layout_marginEnd="20dp"
-                        android:src="@drawable/check"
+                        android:src="@drawable/clock"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>
@@ -192,7 +192,7 @@
                         android:layout_height="30dp"
                         android:layout_marginEnd="20dp"
                         android:id="@+id/projectCheck"
-                        android:src="@drawable/check"
+                        android:src="@drawable/clock"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>
@@ -249,7 +249,7 @@
                         android:layout_height="30dp"
                         android:layout_marginEnd="20dp"
                         android:id="@+id/placementCheck"
-                        android:src="@drawable/check"
+                        android:src="@drawable/clock"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>
@@ -306,7 +306,7 @@
                         android:layout_height="30dp"
                         android:layout_marginEnd="20dp"
                         android:id="@+id/accountCheck"
-                        android:src="@drawable/check"
+                        android:src="@drawable/clock"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>
@@ -363,7 +363,7 @@
                         android:layout_height="30dp"
                         android:layout_marginEnd="20dp"
                         android:id="@+id/adminCheck"
-                        android:src="@drawable/wait"
+                        android:src="@drawable/clock"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>

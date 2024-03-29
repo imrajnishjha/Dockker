@@ -8,14 +8,17 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +50,7 @@ public class NocStudentApply extends AppCompatActivity {
     private StorageReference storageReference;
     FirebaseAuth mAuth;
     String userEmail, convertedEmail;
+    RelativeLayout progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +71,7 @@ public class NocStudentApply extends AppCompatActivity {
         companyAddress = findViewById(R.id.noc_company_address_edtTxt);
         companyPhone = findViewById(R.id.company_phone_number_edtTxt);
         applyBtn = findViewById(R.id.noc_register_btn);
+        progressBar = findViewById(R.id.user_noc_apply_progressBarRL);
 
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -133,7 +138,7 @@ public class NocStudentApply extends AppCompatActivity {
         declarationCard.setOnClickListener(view -> pickDeclPdfLauncher.launch("application/pdf"));
 
         nocBackBtn.setOnClickListener(v -> finish());
-        applyBtn.setOnClickListener(v -> ApplyNoc(nocTypeSpinner,companyName,companyAddress,companyPhone,pdfOfferUri,pdfIdUri,pdfdeclUri,convertedEmail));
+        applyBtn.setOnClickListener(v -> ApplyNoc(nocTypeSpinner,companyName,companyAddress,companyPhone,pdfOfferUri,pdfIdUri,pdfdeclUri,convertedEmail,progressBar));
     }
 
     private String getFileNameFromUri(Uri uri) {
@@ -147,7 +152,7 @@ public class NocStudentApply extends AppCompatActivity {
         return fileName;
     }
 
-    private void ApplyNoc(Spinner type, EditText cName, EditText cAddress, EditText cPhone, Uri offer, Uri iD, Uri declaration, String email){
+    private void ApplyNoc(Spinner type, EditText cName, EditText cAddress, EditText cPhone, Uri offer, Uri iD, Uri declaration, String email,RelativeLayout progressBar){
         HashMap<String, Object> Detail = new HashMap<>();
         HashMap<String, Object> Status = new HashMap<>();
         Status.put("guide",1);
@@ -176,6 +181,7 @@ public class NocStudentApply extends AppCompatActivity {
         } else if (declaration == null){
             Toast.makeText(getApplicationContext(), "Upload Self Declaration", Toast.LENGTH_SHORT).show();
         } else {
+            progressBar.setVisibility(View.VISIBLE);
             StorageReference fileReference = storageReference.child("noc").child(email);
             fileReference.child("offer").putFile(offer).addOnSuccessListener(success ->{
                 fileReference.child("offer").getDownloadUrl().addOnSuccessListener(uri -> {
@@ -198,22 +204,29 @@ public class NocStudentApply extends AppCompatActivity {
                             DatabaseReference nocRef= FirebaseDatabase.getInstance().getReference("noc/");
                             nocRef.child(email).updateChildren(Status).addOnSuccessListener( save ->{
                                 Toast.makeText(getApplicationContext(), "NOC Applied", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(),StudentDashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                progressBar.setVisibility(View.GONE);
                             }).addOnFailureListener( f->{
                                 Toast.makeText(getApplicationContext(), "Some Error Occurred", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
                             });
 
                         }).addOnFailureListener( f->{
                             Toast.makeText(getApplicationContext(), "Some Error Occurred", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                         });
 
                     }).addOnFailureListener( f->{
                         Toast.makeText(getApplicationContext(), "Some Error Occurred", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
                     });
                 }).addOnFailureListener( f->{
                     Toast.makeText(getApplicationContext(), "Some Error Occurred", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                 });
             }).addOnFailureListener( f->{
                 Toast.makeText(getApplicationContext(), "Some Error Occurred", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
             });
         }
     }

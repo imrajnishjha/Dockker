@@ -26,7 +26,7 @@ public class StudentStatus extends AppCompatActivity {
     FirebaseAuth mAuth;
     String userEmail, convertedEmail;
     AppCompatButton backBtn;
-    int statusGuide, statusProject, statusPlacement, statusFinance, statusAdmin;
+    int statusGuide = -1, statusProject = -1, statusPlacement = -1, statusFinance = -1, statusAdmin = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,20 +76,21 @@ public class StudentStatus extends AppCompatActivity {
         backBtn.setOnClickListener(v -> finish());
 
         guideCard.setOnClickListener(v ->{
-            if(statusGuide != 1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusGuide).putExtra("type",0));
+            Log.d("oio", "onCreate: "+statusGuide);
+            if(statusGuide != 1 && statusGuide != -1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusGuide).putExtra("type",0));
         });
         projectCard.setOnClickListener(v -> {
-            if(statusProject != 1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusProject).putExtra("type",1));
+            if(statusProject != 1 && statusGuide != -1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusProject).putExtra("type",1));
         });
         placementCard.setOnClickListener(v -> {
             Log.d("oio", "onCreate: "+statusPlacement);
-            if(statusPlacement != 1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusPlacement).putExtra("type",2));
+            if(statusPlacement != 1 && statusGuide != -1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusPlacement).putExtra("type",2));
         });
         accountCard.setOnClickListener(v -> {
-            if(statusFinance != 1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusFinance).putExtra("type",3));
+            if(statusFinance != 1 && statusGuide != -1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusFinance).putExtra("type",3));
         });
         adminCard.setOnClickListener(v -> {
-            if(statusAdmin != 1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusAdmin).putExtra("type",4));
+            if(statusAdmin != 1 && statusGuide != -1) startActivity(new Intent(getApplicationContext(), NocStatusDescription.class).putExtra("status",statusAdmin).putExtra("type",4));
         });
 
     }

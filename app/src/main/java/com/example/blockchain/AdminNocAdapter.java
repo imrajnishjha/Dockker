@@ -29,29 +29,36 @@ public class AdminNocAdapter extends FirebaseRecyclerAdapter<AdminNocModel, Admi
 
     @Override
     protected void onBindViewHolder(@NonNull NovViewModel holder, int position, @NonNull AdminNocModel model) {
-        holder.studentId.setText(String.valueOf(model.getStatus()));
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("user");
-        userRef.child(getRef(position).getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    Glide.with(holder.studentImg.getContext())
-                            .load(snapshot.child("purl").getValue().toString())
-                            .error(R.drawable.student)
-                            .into(holder.studentImg);
-                    holder.studentName.setText(snapshot.child("name").getValue().toString());
-                    holder.studentId.setText(snapshot.child("id").getValue().toString());
-                    holder.mainView.setOnClickListener(v ->{
-                        v.getContext().startActivity(new Intent(v.getContext(),AdminNocDetail.class).putExtra("key",getRef(holder.getAbsoluteAdapterPosition()).getKey()));
-                    });
+
+        if(model.getReject() == 0 ){
+            holder.studentId.setText(String.valueOf(model.getStatus()));
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("user");
+            userRef.child(getRef(position).getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        Glide.with(holder.studentImg.getContext())
+                                .load(snapshot.child("purl").getValue().toString())
+                                .error(R.drawable.student)
+                                .into(holder.studentImg);
+                        holder.studentName.setText(snapshot.child("name").getValue().toString());
+                        holder.studentId.setText(snapshot.child("id").getValue().toString());
+                        holder.mainView.setOnClickListener(v ->{
+                            v.getContext().startActivity(new Intent(v.getContext(),AdminNocDetail.class).putExtra("key",getRef(holder.getAbsoluteAdapterPosition()).getKey()));
+                        });
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
+        else {
+            holder.mainView.setVisibility(View.GONE);
+        }
+
     }
 
     @NonNull

@@ -28,7 +28,7 @@ import java.util.Objects;
 
 public class Login extends AppCompatActivity {
 
-    TextView StudentReg;
+    TextView StudentReg,ForgotPass;
     AppCompatButton loginBackBtn,loginBtn;
     FirebaseAuth mAuth;
     EditText loginEmail;
@@ -42,6 +42,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         StudentReg = findViewById(R.id.login_new_user_tv);
+        ForgotPass = findViewById(R.id.login_forgot_password_tv);
         loginBackBtn = findViewById(R.id.login_back_btn);
         loginBtn = findViewById(R.id.login_btn);
         progressbar = findViewById(R.id.user_login_progressBarRL);
@@ -53,6 +54,7 @@ public class Login extends AppCompatActivity {
         loginBtn.setOnClickListener(view -> loginUser(progressbar));
 
         StudentReg.setOnClickListener(view -> startActivity(new Intent(this, StudentRegistration.class)));
+        ForgotPass.setOnClickListener(view -> startActivity(new Intent(this, ForgotPassword.class)));
     }
 
     private void loginUser(RelativeLayout progressbar){

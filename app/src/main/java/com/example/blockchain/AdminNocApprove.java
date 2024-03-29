@@ -91,12 +91,6 @@ public class AdminNocApprove extends AppCompatActivity {
         nocAdapter.stopListening();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        nocAdapter.stopListening();
-    }
-
     static class WrapContentLinearLayoutManager extends LinearLayoutManager {
         public WrapContentLinearLayoutManager(Context context) {
             super(context);

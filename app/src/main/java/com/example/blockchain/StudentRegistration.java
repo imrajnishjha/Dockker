@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class StudentRegistration extends AppCompatActivity {
     EditText userName,userEmail,userId,userOrg,userPassword;
@@ -32,7 +34,7 @@ public class StudentRegistration extends AppCompatActivity {
     AppCompatButton registrationBackBtn,userRegisterBtn;
     CheckBox registrationCheckBox;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
+    RelativeLayout progressbar;
     DatabaseReference registrationRef= FirebaseDatabase.getInstance().getReference();
 
     @Override
@@ -51,6 +53,7 @@ public class StudentRegistration extends AppCompatActivity {
         userType = findViewById(R.id.registration_male_female_spinner);
         userDeptType = findViewById(R.id.registration_usertype_spinner);
         userPassword = findViewById(R.id.registration_password_edtTxt);
+        progressbar = findViewById(R.id.user_reg_progressBarRL);
 
         ArrayAdapter<CharSequence> userTypeAdapter = ArrayAdapter.createFromResource(this,
                 R.array.user_type_array, R.layout.spinner_item);
@@ -84,6 +87,16 @@ public class StudentRegistration extends AppCompatActivity {
         userRegisterBtn.setOnClickListener(view -> sendData());
     }
 
+    private boolean isValidEmailId(String email){
+
+        return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
+                + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
+    }
+
     public void sendData(){
         if(userName.getText().toString().isEmpty()){
             userName.setError("Name can't be empty");
@@ -94,10 +107,16 @@ public class StudentRegistration extends AppCompatActivity {
         } else if (userEmail.getText().toString().isEmpty()){
             userEmail.setError("Email can't be empty");
             userEmail.requestFocus();
+        } else if(!isValidEmailId(userEmail.getText().toString().trim())){
+            userEmail.setError("Please enter valid Email");
+            userEmail.requestFocus();
         } else if (userId.getText().toString().isEmpty()){
             userId.setError("Id can't be empty");
             userId.requestFocus();
-        } else if (userType.getSelectedItem().toString().equals("Department") && userDeptType.getSelectedItem().toString().equals("Select Department")){
+        } else if (userId.getText().toString().length() != 10){
+            userId.setError("Please enter valid Id");
+            userId.requestFocus();
+        }  else if (userType.getSelectedItem().toString().equals("Department") && userDeptType.getSelectedItem().toString().equals("Select Department")){
             ((TextView)userDeptType.getSelectedView()).setError("Select your Department");
             userDeptType.requestFocus();
         } else if (userOrg.getText().toString().isEmpty()){
@@ -106,15 +125,20 @@ public class StudentRegistration extends AppCompatActivity {
         } else if (userPassword.getText().toString().isEmpty()){
             userPassword.setError("Password can't be empty");
             userPassword.requestFocus();
-        } else if (!registrationCheckBox.isChecked()){
+        } else if (userPassword.getText().toString().length()<6){
+            userPassword.setError("Password should be of 6 Digits");
+            userPassword.requestFocus();
+        }else if (!registrationCheckBox.isChecked()){
             Toast.makeText(StudentRegistration.this, "Please agree to terms and condition", Toast.LENGTH_SHORT).show();
             registrationCheckBox.requestFocus();
         } else {
+            progressbar.setVisibility(View.VISIBLE);
             HashMap<String,Object> newUserMap = new HashMap<>();
             newUserMap.put("name",userName.getText().toString());
             newUserMap.put("email",userEmail.getText().toString());
             newUserMap.put("org",userOrg.getText().toString());
             newUserMap.put("id",userId.getText().toString());
+            newUserMap.put("purl","");
 
             String sp = userType.getSelectedItem().toString();
             if(sp.equals("Student")) newUserMap.put("type",0);
@@ -145,18 +169,21 @@ public class StudentRegistration extends AppCompatActivity {
                             if(snapshot.child(deptTypeText).child(userId.getText().toString()).exists()){
                                 String mail = Objects.requireNonNull(snapshot.child(deptTypeText).child(userId.getText().toString()).getValue()).toString();
                                 if(mail.equals(userEmail.getText().toString())){
-                                    addUser(newUserMap);
+                                    addUser(newUserMap, progressbar);
                                 }
                                 else{
                                     Toast.makeText(StudentRegistration.this, "Enter the mail provided by Org", Toast.LENGTH_SHORT).show();
+                                    progressbar.setVisibility(View.GONE);
                                 }
                             }
                             else {
                                 Toast.makeText(StudentRegistration.this, "You doesn't belong to this Department", Toast.LENGTH_SHORT).show();
+                                progressbar.setVisibility(View.GONE);
                             }
                         }
                         else{
                             Toast.makeText(StudentRegistration.this, "Your Organisation Does not have this Department", Toast.LENGTH_SHORT).show();
+                            progressbar.setVisibility(View.GONE);
                         }
                     }
 
@@ -175,14 +202,16 @@ public class StudentRegistration extends AppCompatActivity {
                         if(snapshot.child(userId.getText().toString()).exists()){
                             String mail = Objects.requireNonNull(snapshot.child(userId.getText().toString()).getValue()).toString();
                             if(mail.equals(userEmail.getText().toString())){
-                                addUser(newUserMap);
+                                addUser(newUserMap, progressbar);
                             }
                             else{
                                 Toast.makeText(StudentRegistration.this, "Enter the mail provided by Org", Toast.LENGTH_SHORT).show();
+                                progressbar.setVisibility(View.GONE);
                             }
                         }
                         else {
                             Toast.makeText(StudentRegistration.this, "You doesn't belong to this Org", Toast.LENGTH_SHORT).show();
+                            progressbar.setVisibility(View.GONE);
                         }
                     }
 
@@ -195,7 +224,7 @@ public class StudentRegistration extends AppCompatActivity {
 
         }
     }
-    public void addUser(HashMap<String, Object> newUserMap){
+    public void addUser(HashMap<String, Object> newUserMap, RelativeLayout progressbar){
         registrationRef.child("user").child(userEmail.getText().toString().replaceAll("\\.", "%7"))
                 .updateChildren(newUserMap)
                 .addOnSuccessListener(s -> {
@@ -204,13 +233,21 @@ public class StudentRegistration extends AppCompatActivity {
                                 if(comp.isSuccessful()){
                                     mAuth.signOut();
                                     Toast.makeText(StudentRegistration.this,"You are Registered",Toast.LENGTH_SHORT).show();
+                                    progressbar.setVisibility(View.GONE);
                                     startActivity(new Intent(StudentRegistration.this,Login.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                 } else {
-                                    Toast.makeText(StudentRegistration.this,comp.getResult().toString(),Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(StudentRegistration.this,"Please try again",Toast.LENGTH_SHORT).show();
+                                    progressbar.setVisibility(View.GONE);
                                 }
+                            }).addOnFailureListener( f->{
+                                Toast.makeText(StudentRegistration.this, "Please try again", Toast.LENGTH_SHORT).show();
+                                progressbar.setVisibility(View.GONE);
                             });
                 })
-                .addOnFailureListener(fail -> Toast.makeText(StudentRegistration.this, "Please try again", Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(fail -> {
+                    Toast.makeText(StudentRegistration.this, "Please try again", Toast.LENGTH_SHORT).show();
+                    progressbar.setVisibility(View.GONE);
+                });
     }
 
 }
