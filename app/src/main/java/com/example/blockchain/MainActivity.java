@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,16 +33,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         int type = Integer.parseInt(snapshot.child("type").getValue().toString());
-                        if(type == 0){
-                            startActivity(new Intent(MainActivity.this, StudentDashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                        }
-                        else
-                            startActivity(new Intent(MainActivity.this, AdminDashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                        if(type == 0) startActivity(new Intent(MainActivity.this, StudentDashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                        else startActivity(new Intent(MainActivity.this, AdminDashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
             }

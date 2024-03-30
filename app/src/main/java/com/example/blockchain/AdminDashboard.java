@@ -38,7 +38,7 @@ public class AdminDashboard extends AppCompatActivity {
     FirebaseAuth mAuth;
     String userEmail,convertedEmail;
     Dialog addItemDialog;
-    CardView nocCard,statusCard,profileCard;
+    CardView nocCard,rejectCard,profileCard;
     TextView nocRejectedStatus, nocApprovedStatus;
     DatabaseReference registrationRef= FirebaseDatabase.getInstance().getReference();
     @Override
@@ -53,7 +53,7 @@ public class AdminDashboard extends AppCompatActivity {
         }
 
         nocCard = findViewById(R.id.core_mem_admin);
-        statusCard = findViewById(R.id.explore_admin);
+        rejectCard = findViewById(R.id.explore_admin);
         profileCard = findViewById(R.id.member_directory_admin);
         nocRejectedStatus = findViewById(R.id.noc_admin_value);
         nocApprovedStatus = findViewById(R.id.issued_value_admin);
@@ -139,11 +139,13 @@ public class AdminDashboard extends AppCompatActivity {
 
         profileCard.setOnClickListener( v -> startActivity(new Intent(this, StudentProfile.class)));
         nocCard.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), AdminNocApprove.class)));
+        rejectCard.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), AdminRejectStudent.class)));
+        nocApprovedStatus.setOnClickListener(v-> startActivity(new Intent(getApplicationContext(),AdminNocApprove.class)));
+        nocRejectedStatus.setOnClickListener(v-> startActivity(new Intent(getApplicationContext(), AdminRejectStudent.class)));
     }
 
     public void uploadImage() {
 
-        Log.d("uiu", "onCreate:j ");
         HashMap<String, Object> newMap = new HashMap<>();
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference("User Picture/" + convertedEmail );

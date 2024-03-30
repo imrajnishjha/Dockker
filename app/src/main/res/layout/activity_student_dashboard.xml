@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f5f5f5"
+    android:background="#d8e2dc"
     android:scrollbars="horizontal"
     android:fillViewport="true"
     tools:context=".StudentDashboard">
@@ -168,7 +168,7 @@
             android:layout_marginTop="18dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            app:cardBackgroundColor="#d8e2dc"
+            app:cardBackgroundColor="#98c1d9"
             app:cardCornerRadius="12dp"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardElevation="6dp"
@@ -182,7 +182,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="#d8e2dc"
+                android:backgroundTint="#98c1d9"
                 android:padding="3dp"
                 android:background="@color/white"
                 android:src="@drawable/certificate" />
@@ -223,7 +223,7 @@
             android:layout_marginTop="18dp"
             android:layout_marginBottom="10dp"
             android:layout_toEndOf="@id/core_mem"
-            app:cardBackgroundColor="#d8e2dc"
+            app:cardBackgroundColor="#98c1d9"
             app:cardCornerRadius="12dp"
             app:cardElevation="6dp"
             android:foreground="?android:attr/selectableItemBackground"
@@ -236,7 +236,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:padding="3dp"
-                android:backgroundTint="#d8e2dc"
+                android:backgroundTint="#98c1d9"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
@@ -276,7 +276,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            app:cardBackgroundColor="#d8e2dc"
+            app:cardBackgroundColor="#98c1d9"
             app:cardCornerRadius="12dp"
             app:cardElevation="6dp"
             android:layout_marginStart="12dp"
@@ -290,7 +290,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:padding="3dp"
-                android:background="#d8e2dc"
+                android:background="#98c1d9"
                 android:src="@drawable/email" />
 
             <TextView
@@ -330,7 +330,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="10dp"
             android:layout_toEndOf="@id/explore"
-            app:cardBackgroundColor="#d8e2dc"
+            app:cardBackgroundColor="#98c1d9"
             app:cardCornerRadius="12dp"
             app:cardElevation="6dp"
             android:layout_marginEnd="12dp"
@@ -344,7 +344,7 @@
                 android:layout_marginStart="10dp"
                 android:padding="3dp"
                 android:layout_marginTop="10dp"
-                android:background="#d8e2dc"
+                android:background="#98c1d9"
                 android:src="@drawable/cv" />
 
             <TextView

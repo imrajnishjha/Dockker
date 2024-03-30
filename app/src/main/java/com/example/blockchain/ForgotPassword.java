@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -28,6 +29,7 @@ public class ForgotPassword extends AppCompatActivity {
     AppCompatButton resetPassBackBtn,resetPassSubmitBtn;
     TextInputEditText restPassword, confResetPass;
     TextInputLayout resetLayout, conLayout;
+    RelativeLayout progressBar;
     int type = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +44,14 @@ public class ForgotPassword extends AppCompatActivity {
         resetPassSubmitBtn = findViewById(R.id.resetPass_btn);
         resetLayout = findViewById(R.id.reset_pass_layout);
         conLayout = findViewById(R.id.reset_conf_pass_layout);
+        progressBar = findViewById(R.id.user_resetPass_progressBarRL);
 
         resetPassBackBtn.setOnClickListener(v-> finish());
 
-        resetPassSubmitBtn.setOnClickListener(v->resetPass(userEmailEdt,restPassword,confResetPass,resetLayout,conLayout));
+        resetPassSubmitBtn.setOnClickListener(v->resetPass(userEmailEdt,restPassword,confResetPass,resetLayout,conLayout,progressBar));
     }
 
-    private void resetPass( EditText userEmail, TextInputEditText pass, TextInputEditText confPass,TextInputLayout resetLayout, TextInputLayout conLayout){
+    private void resetPass( EditText userEmail, TextInputEditText pass, TextInputEditText confPass,TextInputLayout resetLayout, TextInputLayout conLayout, RelativeLayout progressBar){
         if(type == 0){
             String email = userEmail.getText().toString().toLowerCase();
             if(TextUtils.isEmpty(email)){
@@ -58,6 +61,7 @@ public class ForgotPassword extends AppCompatActivity {
                 userEmail.setError("Enter valid email");
                 userEmail.requestFocus();
             } else {
+                progressBar.setVisibility(View.VISIBLE);
                 DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("user");
                 userRef.child(email.replaceAll("\\.", "%7")).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -67,16 +71,18 @@ public class ForgotPassword extends AppCompatActivity {
                             userEmail.setVisibility(View.GONE);
                             resetLayout.setVisibility(View.VISIBLE);
                             conLayout.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
 
                         } else {
                             userEmail.setError("Email doesn't exists!");
                             userEmail.requestFocus();
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
             }
@@ -92,7 +98,9 @@ public class ForgotPassword extends AppCompatActivity {
                 confPass.setError("Confirm password doesn't match");
                 confPass.requestFocus();
             } else{
+                progressBar.setVisibility(View.VISIBLE);
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
                 mAuth.fetchSignInMethodsForEmail(userEmail.getText().toString()).addOnCompleteListener( task ->{
                     if(task.isSuccessful()){
                         if (task.getResult().getSignInMethods().size() > 0){
@@ -101,16 +109,24 @@ public class ForgotPassword extends AppCompatActivity {
                                 user.updatePassword(pass.getText().toString()).addOnCompleteListener(updatePasswordTask ->{
                                     if (updatePasswordTask.isSuccessful()) {
                                         // Password updated successfully
+                                        progressBar.setVisibility(View.GONE);
                                         Toast.makeText(getApplicationContext(), "Password updated successfully", Toast.LENGTH_SHORT).show();
                                     } else {
                                         // Password update failed
+                                        progressBar.setVisibility(View.GONE);
                                         Toast.makeText(getApplicationContext(), "Failed to update password", Toast.LENGTH_SHORT).show();
                                     }
+                                }).addOnFailureListener( f->{
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(getApplicationContext(), "Failed to update password", Toast.LENGTH_SHORT).show();
                                 });
                             }
                         }
 
                     }
+                }).addOnFailureListener( f->{
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "Failed to update password", Toast.LENGTH_SHORT).show();
                 });
             }
         }
