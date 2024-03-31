@@ -44,7 +44,7 @@ public class AdminNocRemark extends AppCompatActivity {
     String studentKey, type, isDelete = "0";
     Uri itemPurl;
     AppCompatButton approveBtn;
-    String adminType,adminName;
+    String adminType,adminName,adminMail,adminMailConverted = "";
     int Status;
     String userEmail,convertedEmail;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -86,6 +86,8 @@ public class AdminNocRemark extends AppCompatActivity {
                 if(snapshot.exists()){
                     int deptType = Integer.parseInt(snapshot.child("dept").getValue().toString());
                     adminName = snapshot.child("name").getValue().toString();
+                    adminMail = snapshot.getKey().toString();
+                    adminMailConverted = adminMail.replaceAll("%7","\\.");
                     if(deptType == 2){
                         adminType = "guide";
                         Status = 1;
@@ -166,9 +168,9 @@ public class AdminNocRemark extends AppCompatActivity {
         //1 to reject 0 to approve
         approveBtn.setOnClickListener( v ->{
             if(type.equals("1")){
-                uploadRemark(1,adminType,itemPurl,remarkEdt.getText().toString(),adminName,progressBar);
+                uploadRemark(1,adminType,itemPurl,remarkEdt.getText().toString(),adminName,progressBar,adminMailConverted);
             } else if(type.equals("0")){
-                uploadRemark(0,adminType,itemPurl,remarkEdt.getText().toString(),adminName,progressBar);
+                uploadRemark(0,adminType,itemPurl,remarkEdt.getText().toString(),adminName,progressBar,adminMailConverted);
             }
         });
 
@@ -184,7 +186,7 @@ public class AdminNocRemark extends AppCompatActivity {
         }
         return fileName;
     }
-    private void uploadRemark(int appRej,String type, Uri imgUri, String remark, String name, RelativeLayout progressBar){
+    private void uploadRemark(int appRej,String type, Uri imgUri, String remark, String name, RelativeLayout progressBar,String Mail){
         progressBar.setVisibility(View.VISIBLE);
         DatabaseReference nocRef = FirebaseDatabase.getInstance().getReference("noc").child(studentKey);
         HashMap<String,Object> remarkMap = new HashMap<>();
@@ -203,6 +205,7 @@ public class AdminNocRemark extends AppCompatActivity {
             remarkMap.put("name",name);
             remarkMap.put("remark",remark);
             remarkMap.put("purl","");
+            remarkMap.put("email",Mail);
             nocRef.updateChildren(nocStatusMap).addOnSuccessListener(s ->{
                 nocRef.child("Remark").child(type).updateChildren(remarkMap);
                 Toast.makeText(this, appRej == 0 ?"NOC Approved":"NOC Rejected", Toast.LENGTH_SHORT).show();
@@ -221,6 +224,7 @@ public class AdminNocRemark extends AppCompatActivity {
                        remarkMap.put("name",name);
                        remarkMap.put("remark",remark);
                        remarkMap.put("purl",uri.toString());
+                       remarkMap.put("email",Mail);
                        nocRef.updateChildren(nocStatusMap).addOnSuccessListener( s->{
                            nocRef.child("Remark").child(type).updateChildren(remarkMap);
                            Toast.makeText(this, appRej == 0 ?"NOC Approved":"NOC Rejected", Toast.LENGTH_SHORT).show();

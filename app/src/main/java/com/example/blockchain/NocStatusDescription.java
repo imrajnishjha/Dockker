@@ -80,7 +80,7 @@ public class NocStatusDescription extends AppCompatActivity {
 
     private void infoSetter(String type,TextView nameTv, TextView remarkTv, ImageView imgDescIv, DataSnapshot snapshot){
         if(snapshot.child(type).exists()){
-            nameTv.setText(snapshot.child(type).child("name").getValue().toString());
+            nameTv.setText(snapshot.child(type).child("name").getValue().toString()+" ("+snapshot.child(type).child("email").getValue().toString()+")");
             remarkTv.setText(snapshot.child(type).child("remark").getValue().toString());
             Glide.with(getApplicationContext())
                     .load(snapshot.child(type).child("purl").getValue().toString())
